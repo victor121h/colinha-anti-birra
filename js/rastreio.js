@@ -97,4 +97,23 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preencherSuporte);
   else preencherSuporte();
+
+  /* ---------- Aviso da taxa de serviço da plataforma (para o preço da página bater com o checkout) ---------- */
+  function avisoTaxa() {
+    var taxa = (C.TAXA_SERVICO || '').trim();
+    if (!taxa) return;
+    var conds = document.querySelectorAll('.condicao');
+    for (var i = 0; i < conds.length; i++) {
+      if (conds[i].nextElementSibling && conds[i].nextElementSibling.className === 'taxa-aviso') continue;
+      var p = document.createElement('p');
+      p.className = 'taxa-aviso';
+      p.textContent = '+ R$ ' + taxa + ' de taxa de serviço da plataforma, cobrada no checkout';
+      p.style.cssText = 'font-size:13px;opacity:.75;margin:4px 0 10px;';
+      conds[i].parentNode.insertBefore(p, conds[i].nextSibling);
+    }
+    var faqs = document.querySelectorAll('[data-faq-preco]');
+    for (var j = 0; j < faqs.length; j++) faqs[j].textContent += ' No checkout entra também a taxa de serviço da plataforma (R$ ' + taxa + ').';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', avisoTaxa);
+  else avisoTaxa();
 })();

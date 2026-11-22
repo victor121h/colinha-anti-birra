@@ -25,6 +25,11 @@ window.CONFIG = {
   // funil passa a ser a página obrigado.html, com um botão para essa URL.
   AREA_MEMBROS_URL: "members_area",
 
+  // Taxa de serviço que a Cakto cobra do comprador no checkout (hoje R$ 0,99, configuração da conta Cakto).
+  // Enquanto tiver valor, as páginas mostram "+ R$ 0,99 de taxa de serviço da plataforma" perto de cada preço,
+  // para o preço da página bater com o do checkout. Se a taxa for desligada na Cakto, deixe "" (vazio).
+  TAXA_SERVICO: "0,99",
+
   // E-mail de suporte (aparece no rodapé de todas as páginas).
   // Enquanto estiver "PREENCHER", a linha de suporte fica escondida no site.
   SUPORTE_EMAIL: "PREENCHER",
