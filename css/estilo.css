@@ -645,3 +645,11 @@ cakto-upsell-reject::part(button) {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Logo do produto (22/11): no título da oferta e no topo da página de obrigado */
+.oferta-logo img { display: block; width: 210px; max-width: 62%; height: auto; margin: 0 auto; }
+.obrigado .obrigado-logo { display: block; width: 150px; max-width: 46%; height: auto; margin: 0 auto 18px; }
+
+/* Imagem carregada: some o fundo e o nome do arquivo do placeholder (igual ao Prato Ponte; o onerror remove o <img> e o placeholder volta) */
+.midia--contain:has(> img) { background: none; }
+.midia:has(> img)::after { content: none; }
