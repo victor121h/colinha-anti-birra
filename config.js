@@ -17,7 +17,7 @@ window.CONFIG = {
   CHECKOUT_URL: "https://pay.cakto.com.br/oxkkirx_1356768",
 
   // Endereço publicado do site (GitHub Pages). As URLs dos upsells são montadas a partir dele.
-  SITE_URL: "https://victor121h.github.io/colinha-anti-birra",
+  SITE_URL: "https://colinha-anti-birra.replit.app",
 
   // Fim do funil (último upsell/downsell).
   // "members_area" = valor especial da Cakto: o botão leva a pessoa direto para a área de membros
