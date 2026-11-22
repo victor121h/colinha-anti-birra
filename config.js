@@ -1,0 +1,41 @@
+/* =====================================================================
+   CONFIG DO FUNIL · Colinha Anti-Birra
+   ---------------------------------------------------------------------
+   Este é o ÚNICO arquivo com dados de conta. Troque cada "PREENCHER".
+   Enquanto um valor tiver a palavra PREENCHER, o site ignora o item
+   (o pixel não carrega, a área de membros não aparece etc.).
+   Passo a passo no README.md.
+   ===================================================================== */
+window.CONFIG = {
+  // Meta (Facebook): Gerenciador de Eventos > sua fonte de dados > ID do pixel (só números).
+  PIXEL_ID: "PREENCHER",
+
+  // UTMify: o valor de window.pixelId que aparece no código do pixel do UTMify.
+  UTMIFY_PIXEL_ID: "PREENCHER",
+
+  // Link do checkout da Cakto do produto principal (Colinha Anti-Birra, R$ 27).
+  CHECKOUT_URL: "https://pay.cakto.com.br/oxkkirx_1356768",
+
+  // Endereço publicado do site (GitHub Pages). As URLs dos upsells são montadas a partir dele.
+  SITE_URL: "https://victor121h.github.io/colinha-anti-birra",
+
+  // Fim do funil (último upsell/downsell).
+  // "members_area" = valor especial da Cakto: o botão leva a pessoa direto para a área de membros
+  // (já logada, quando ela aceita a oferta). Se trocar por uma URL comum (https://...), o fim do
+  // funil passa a ser a página obrigado.html, com um botão para essa URL.
+  AREA_MEMBROS_URL: "members_area",
+
+  // E-mail de suporte (aparece no rodapé de todas as páginas).
+  // Enquanto estiver "PREENCHER", a linha de suporte fica escondida no site.
+  SUPORTE_EMAIL: "PREENCHER",
+
+  // offer-id de cada oferta de upsell/downsell, copiado da Cakto.
+  OFFER_ID: {
+    up1: "td5emfp", // Upsell 1   · Mãe Calma em 30 Dias  · R$ 67
+    ds1: "sun4rxs", // Downsell 1 · Mãe Calma em 30 Dias  · R$ 37
+    up2: "4sh9y9u", // Upsell 2   · Prato Sem Briga       · R$ 47
+    ds2: "9cq8qke", // Downsell 2 · Prato Sem Briga       · R$ 27
+    up3: "3e42oag", // Upsell 3   · Kit Emoções em Casa   · R$ 37
+    ds3: "9qaw893"  // Downsell 3 · Kit Emoções em Casa   · R$ 19,90
+  }
+};

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mapa da Birra · Teste gratuito</title>
+  <meta name="description" content="Teste gratuito de 2 minutos: descubra a frase certa para a birra do seu filho, de acordo com a idade dele.">
+  <meta name="theme-color" content="#FFF8F0">
+  <meta property="og:title" content="Mapa da Birra · Teste gratuito">
+  <meta property="og:description" content="Descubra a frase certa para a birra do seu filho, de acordo com a idade dele.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A1%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="img/capa.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+
+  <!-- Quem recarrega no meio do quiz volta para a tela onde parou (sem piscar a capa) -->
+  <style>.restaurando #tela-capa { visibility: hidden; }</style>
+  <script>
+    try {
+      var s = JSON.parse(localStorage.getItem('cab_quiz_v1') || 'null');
+      if (s && s.tela > 0) {
+        document.documentElement.className += ' restaurando';
+        setTimeout(function () { document.documentElement.classList.remove('restaurando'); }, 3000);
+      }
+    } catch (e) {}
+  </script>
+
+  <!-- UTMify: UTMs -->
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+  <script src="config.js" defer></script>
+  <script src="js/rastreio.js" defer></script>
+  <script src="js/quiz.js" defer></script>
+</head>
+<body>
+  <main class="pagina">
+
+    <!-- ===================== ETAPA 1 · CAPA ===================== -->
+    <section id="tela-capa" class="capa" aria-labelledby="capa-titulo">
+      <span class="selo"><span aria-hidden="true">⏱</span> Teste gratuito · 2 minutos</span>
+      <h1 id="capa-titulo">Descubra <span class="marca-texto">a frase certa</span> para a birra do seu filho, de acordo com a idade dele</h1>
+      <p class="subtitulo">Responda 12 perguntas rápidas e receba o seu <strong>Mapa da Birra</strong>: onde as crises mais acontecem e por onde começar.</p>
+      <div class="midia capa-midia" data-ph="img/capa.jpg">
+        <img src="img/capa.jpg" alt="Mãe abaixada, calma, conversando com a filha pequena na altura dela" width="880" height="1100" fetchpriority="high" decoding="async" onerror="this.remove()">
+      </div>
+      <button id="btn-comecar" class="btn btn--pulso" type="button">COMEÇAR MEU TESTE GRATUITO</button>
+      <p class="nota">Para mães e pais de crianças de 1 a 6 anos. O teste é gratuito; no final você pode, se quiser, levar a Colinha completa.</p>
+    </section>
+
+    <!-- ===================== PERGUNTAS (montadas pelo js/quiz.js) ===================== -->
+    <section id="tela-quiz" class="quiz" hidden>
+      <div class="quiz-topo">
+        <button class="voltar" id="btn-voltar" type="button" aria-label="Voltar para a tela anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <div class="progresso" role="progressbar" aria-label="Progresso do teste" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="progresso-barra"></span>
+        </div>
+      </div>
+      <div class="quiz-conteudo" id="quiz-conteudo"></div>
+    </section>
+
+    <!-- ===================== CARREGAMENTO ===================== -->
+    <section id="tela-carregando" class="carregando" hidden aria-live="polite">
+      <div class="anel" aria-hidden="true"></div>
+      <ul class="passos-carregando">
+        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Analisando as suas respostas...</span></li>
+        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span id="carregando-idade">Separando as frases para a idade do seu filho...</span></li>
+        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Montando o seu Mapa da Birra...</span></li>
+      </ul>
+    </section>
+
+    <!-- ===================== RESULTADO + MINI VSL + OFERTA ===================== -->
+    <section id="tela-resultado" class="resultado" hidden>
+      <h1 id="res-titulo" tabindex="-1">O seu Mapa da Birra está pronto</h1>
+
+      <div class="mapa">
+        <h2>O que o seu Mapa mostra</h2>
+        <ul>
+          <li><span class="ic" aria-hidden="true">👶</span><span><strong>Idade:</strong> <span id="res-idade"></span></span></li>
+          <li><span class="ic" aria-hidden="true">📍</span><span id="res-colinhas"></span></li>
+          <li><span class="ic" aria-hidden="true">🧠</span><span>Nessa idade, isso é esperado: o freio ainda está em construção.</span></li>
+          <li><span class="ic" aria-hidden="true">🌱</span><span><strong>O que vai mudar o seu dia:</strong> ter a frase pronta antes da crise e um plano de <span id="res-minutos">5</span> minutos por dia.</span></li>
+        </ul>
+        <p class="aviso-idade" id="res-aviso-idade" hidden>A Colinha foi feita para crianças de 1 a 6 anos. Com crianças maiores, muitas frases da versão de 4 a 6 anos ainda ajudam, mas o material não foi pensado para essa idade.</p>
+      </div>
+
+      <p class="vsl-intro">Assista: a Clara explica o seu Mapa</p>
+      <div class="midia vsl" id="vsl" data-ph="Vídeo da Clara">
+        <video id="vsl-video" playsinline webkit-playsinline muted loop preload="none" aria-label="Vídeo da Clara sobre o Mapa da Birra e a Colinha Anti-Birra"></video>
+        <button class="vsl-toque" id="vsl-toque" type="button" aria-label="Pausar o vídeo" hidden>
+          <span class="icone-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+        </button>
+        <button class="vsl-som" id="vsl-som" type="button"><span><span aria-hidden="true">🔊</span> Toque para ouvir</span></button>
+        <div class="vsl-barra" id="vsl-barra" hidden><span id="vsl-progresso"></span></div>
+        <p class="vsl-aviso" id="vsl-erro" hidden>O vídeo não carregou agora. A oferta já está logo abaixo.</p>
+      </div>
+
+      <div class="ler-oferta" id="ler-oferta">
+        <button class="link-discreto" id="btn-ler-oferta" type="button">Prefere ler? Ver a oferta agora</button>
+      </div>
+
+      <!-- Oferta: abre aos 172 s de vídeo com som, 185 s depois do resultado ou pelo link acima -->
+      <div id="oferta" hidden>
+        <div class="caixa-preco" id="oferta-topo">
+          <h2 class="so-leitor">Oferta</h2>
+          <div class="valor"><small>R$</small>27</div>
+          <p class="condicao">Pagamento único · Pix ou cartão</p>
+          <a class="btn btn--pulso" data-checkout href="#"><span>QUERO MINHA COLINHA <span class="sem-quebra">ANTI-BIRRA</span></span></a>
+          <p class="miudo">Acesso no seu e-mail logo após o pagamento · Garantia de 7 dias</p>
+        </div>
+
+        <div class="midia midia--quadrada midia--contain oferta-mockup" data-ph="img/mockup.png">
+          <img src="img/mockup.png" alt="Colinha Anti-Birra: cartões de frases, guia Freio Emprestado e versão para o celular" width="1080" height="1080" loading="lazy" decoding="async" onerror="this.remove()">
+        </div>
+        <h2 class="oferta-titulo">Colinha Anti-Birra</h2>
+        <p class="oferta-sub">As frases prontas para as 10 birras do dia, em cartões para colar na geladeira, com o método Freio Emprestado e um plano de 7 dias para você atravessar a birra sem gritar.</p>
+
+        <section class="secao">
+          <h2>O que você recebe</h2>
+          <ul class="lista-check">
+            <li><strong>As 10 colinhas:</strong> frases prontas para cada situação, com uma versão para 1 a 3 anos e outra para 4 a 6 anos.</li>
+            <li><strong>Guia Freio Emprestado:</strong> os 3 passos para atravessar a birra sem gritar, explicados de um jeito simples.</li>
+            <li><strong>Cartões de geladeira:</strong> para imprimir e colar, e também uma versão para a tela do celular.</li>
+            <li><strong>Plano de 7 dias:</strong> 5 minutos por dia para trocar o grito pela calma, aos poucos.</li>
+            <li><strong>Quando procurar o pediatra:</strong> os sinais de que vale conversar com um profissional.</li>
+          </ul>
+          <div class="chips" id="chips-colinhas" aria-label="As 10 colinhas"></div>
+          <p class="chips-legenda" id="chips-legenda" hidden>Em amarelo, com ✓: as que você marcou no teste.</p>
+        </section>
+
+        <section class="secao">
+          <h2>Como funciona: Freio Emprestado em 3 passos</h2>
+          <div class="passos3">
+            <div class="passo3"><h3>Pausa</h3><p>Você freia primeiro: uma respiração e abaixa na altura da criança.</p></div>
+            <div class="passo3"><h3>Frase pronta</h3><p>Uma frase curta que dá nome ao que ela sente e mantém o limite.</p></div>
+            <div class="passo3"><h3>Reparo</h3><p>Se escapou um grito, a frase para pedir desculpa e reconectar.</p></div>
+          </div>
+        </section>
+
+        <section class="secao">
+          <h2>Para quem é (e para quem não é)</h2>
+          <div class="dupla">
+            <div class="cartao cartao--sim"><h3>Para quem é</h3><p>Mães e pais de crianças de 1 a 6 anos que querem gritar menos e ter a frase certa na hora da birra.</p></div>
+            <div class="cartao cartao--nao"><h3>Para quem não é</h3><p>Não é tratamento. Se você desconfia de autismo, TDAH ou outra condição, fale com o pediatra.</p></div>
+          </div>
+        </section>
+
+        <section class="secao">
+          <h2>Por que é tão barato?</h2>
+          <p>É digital e a gente quer que caiba no bolso de qualquer mãe.</p>
+        </section>
+
+        <div class="caixa-preco">
+          <p><strong>Colinha Anti-Birra completa</strong></p>
+          <div class="valor"><small>R$</small>27</div>
+          <p class="condicao">Pagamento único · Pix ou cartão</p>
+          <a class="btn" data-checkout href="#"><span>QUERO MINHA COLINHA <span class="sem-quebra">ANTI-BIRRA</span></span></a>
+          <p class="miudo">Sem mensalidade. O preço aqui é o mesmo do checkout.</p>
+        </div>
+
+        <div class="garantia">
+          <div class="selo-7" aria-hidden="true"><b>7</b><span>DIAS</span></div>
+          <p><strong>Garantia de 7 dias.</strong> Se não gostar, é só pedir o reembolso dentro desse prazo e você recebe o valor de volta.</p>
+        </div>
+
+        <section class="secao">
+          <h2>Perguntas frequentes</h2>
+          <div class="faq">
+            <details>
+              <summary>Como eu recebo?</summary>
+              <p>Assim que o pagamento é aprovado, o acesso chega no e-mail que você usar na compra. Quem envia é a Cakto, a plataforma de pagamento. No cartão é na hora; no Pix, logo depois da confirmação. Dá para abrir tudo no celular.</p>
+            </details>
+            <details>
+              <summary>Serve para qual idade?</summary>
+              <p>Para crianças de 1 a 6 anos. Cada colinha tem uma versão para 1 a 3 anos e outra para 4 a 6 anos.</p>
+            </details>
+            <details>
+              <summary>Precisa imprimir?</summary>
+              <p>Não. Tem a versão para a tela do celular. Os cartões para imprimir são para quem quer a frase colada na geladeira.</p>
+            </details>
+            <details>
+              <summary>É assinatura?</summary>
+              <p>Não. É um pagamento único de R$ 27, sem mensalidade.</p>
+            </details>
+            <details>
+              <summary>Serve para autismo ou TDAH?</summary>
+              <p>A Colinha não é tratamento e não foi feita para nenhuma condição específica. Se você desconfia de autismo, TDAH ou outra condição, converse com o pediatra: é ele quem pode avaliar e orientar.</p>
+            </details>
+            <details>
+              <summary>E se eu não gostar?</summary>
+              <p>Você tem 7 dias de garantia. Se não gostar, pede o reembolso dentro desse prazo e recebe o valor de volta.</p>
+            </details>
+          </div>
+        </section>
+
+        <div class="caixa-preco">
+          <div class="valor"><small>R$</small>27</div>
+          <p class="condicao">Pagamento único · Pix ou cartão</p>
+          <a class="btn" data-checkout href="#"><span>QUERO MINHA COLINHA <span class="sem-quebra">ANTI-BIRRA</span></span></a>
+        </div>
+      </div>
+
+      <p class="ler-oferta"><button class="link-discreto" id="btn-refazer" type="button">Refazer o teste</button></p>
+    </section>
+
+    <!-- ===================== RODAPÉ ===================== -->
+    <footer class="rodape">
+      <p>A Clara, apresentadora do vídeo, é uma personagem criada com inteligência artificial. O conteúdo da Colinha foi montado a partir de orientações públicas da Sociedade Brasileira de Pediatria, do Center on the Developing Child (Universidade Harvard) e do CDC. Não substitui o acompanhamento do pediatra.</p>
+      <p>Fontes públicas: Sociedade Brasileira de Pediatria (orientações sobre disciplina sem violência; Lei 13.010/2014, Lei Menino Bernardo) · Center on the Developing Child, Universidade Harvard (funções executivas e autorregulação) · CDC (orientações para pais de crianças de 1 a 5 anos sobre birra e rotina).</p>
+      <p class="cvv">Se você sente que está no seu limite, você pode conversar com o CVV pelo <a href="tel:188">188</a>, de graça, 24 horas.</p>
+      <p data-suporte-linha>Suporte: <a data-suporte-email href="#">e-mail de suporte</a></p>
+      <p>© 2026 Colinha Anti-Birra · Pagamento processado pela Cakto.</p>
+    </footer>
+  </main>
+</body>
+</html>
