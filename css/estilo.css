@@ -653,3 +653,8 @@ cakto-upsell-reject::part(button) {
 /* Imagem carregada: some o fundo e o nome do arquivo do placeholder (igual ao Prato Ponte; o onerror remove o <img> e o placeholder volta) */
 .midia--contain:has(> img) { background: none; }
 .midia:has(> img)::after { content: none; }
+
+/* Logo no topo do quiz (capa, perguntas, carregamento e resultado). As telas descontam a altura dela para a capa continuar cabendo em 390×844 */
+.topo-marca { display: flex; justify-content: center; padding: 12px 0 2px; position: relative; z-index: 1; }
+.topo-marca img { display: block; height: 40px; width: auto; }
+.topo-marca ~ .capa, .topo-marca ~ .quiz, .topo-marca ~ .carregando { min-height: calc(100vh - 54px); min-height: calc(100svh - 54px); }
